@@ -816,6 +816,16 @@ const std::string Json::Schema::FAULT_HTTP_FILTER_SCHEMA(R"EOF(
             "exclusiveMinimum" : true
           }
         },
+        "downstream_nodes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "string"
+          }
+        },
+        "match_downstream_cluster": {
+          "type": "boolean"
+        },
         "required" : ["type", "fixed_delay_percent", "fixed_duration_ms"],
         "additionalProperties" : false
       },

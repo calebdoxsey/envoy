@@ -147,6 +147,22 @@ TEST(FaultFilterBadConfigTest, BadAbortPercent) {
   EXPECT_THROW(FaultFilterConfig(*config, runtime, "", stats), EnvoyException);
 }
 
+TEST(FaultFilterBadConfigTest, Empty) {
+  const std::string json = R"EOF(
+    {
+      "abort" : {
+        "abort_percent" : 200,
+        "http_status" : 429
+      }
+    }
+  )EOF";
+
+  Stats::IsolatedStoreImpl stats;
+  Json::ObjectSharedPtr config = Json::Factory::loadFromString(json);
+  NiceMock<Runtime::MockLoader> runtime;
+  EXPECT_THROW(FaultFilterConfig(*config, runtime, "", stats), EnvoyException);
+}
+
 TEST(FaultFilterBadConfigTest, MissingHTTPStatus) {
   const std::string json = R"EOF(
     {
